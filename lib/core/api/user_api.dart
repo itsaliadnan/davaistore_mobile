@@ -14,8 +14,8 @@ final userApiProvider = Provider<UserApi>((ref) {
 @RestApi()
 abstract class UserApi {
   factory UserApi(Dio dio, {String? baseUrl}) = _UserApi;
-  @GET('/api/v1/users')
-  Future<List<User>> getUsers();
-  @POST('/api/v1/users')
-  Future<User> createUser(@Body() Map<String, dynamic> body);
+  @GET('users')
+  Future<List<UserModel>> getUsers();
+  @POST('users')
+  Future<UserModel> createUser(@Body() Map<String, dynamic> body);
 }

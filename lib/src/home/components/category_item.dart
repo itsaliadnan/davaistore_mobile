@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 
 class CategoryItem extends StatelessWidget {
   final String name;
-  final String iconPath; // مسار SVG
+  final String iconPath;
   final VoidCallback onTap;
 
   const CategoryItem({

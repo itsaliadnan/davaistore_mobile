@@ -41,6 +41,14 @@ class AppColors {
   static const info50 = Color(0xFF38BDF8);
   static const info25 = Color(0xFFE0F2FE);
   static const info10 = Color(0xFFF0F9FF);
+  static const redest1 = Color(0xFF81162b);
+  static const redest2 = Color(0xFFf10057);
+  static const gold = Color(0xFFc9caa9);
+  static const gold2 = Color(0xFFffffff);
+  static const bluest = Color(0xFF478dba);
+  static const greenest = Color(0xFF498d23);
+  static const purplest = Color(0xFFb800fa);
+  static const pinkest = Color(0xFFff49a1);
 }
 
 // ---- ThemeExtension for Semantic Colors ----
@@ -105,7 +113,7 @@ class AppColorSchemes {
     brightness: Brightness.light,
     primary: AppColors.black, // لون أساسي (عناوين / أزرار)
     onPrimary: AppColors.white,
-    secondary: AppColors.blue,
+    secondary: Color(0xFFC0D8EC), // لون ثانوي (تسليط الضوء / التفاعلات)
     onSecondary: AppColors.black,
     tertiary: AppColors.tosca,
     onTertiary: AppColors.black,
@@ -113,7 +121,7 @@ class AppColorSchemes {
     onError: AppColors.white,
     surface: AppColors.white, // ✅ خلفية البطاقات
     onSurface: AppColors.dark,
-    surfaceVariant: AppColors.grey3,
+    surfaceContainerHighest: AppColors.grey3,
     onSurfaceVariant: AppColors.grey1,
     outline: AppColors.grey2,
     outlineVariant: AppColors.grey3,
@@ -121,9 +129,7 @@ class AppColorSchemes {
     scrim: Colors.black,
     inverseSurface: AppColors.darkGrey,
     inversePrimary: AppColors.blue,
-    surfaceTint: AppColors.blue,
-    background: AppColors.light, // ✅ خلفية الشاشات العامة
-    onBackground: AppColors.black, // ✅ لون النص على الخلفية
+    surfaceTint: AppColors.blue, // ✅ لون النص على الخلفية
   );
 
   static const dark = ColorScheme(
@@ -138,7 +144,7 @@ class AppColorSchemes {
     onError: AppColors.black,
     surface: AppColors.dark, // ✅ خلفية البطاقات الداكنة
     onSurface: AppColors.white,
-    surfaceVariant: AppColors.grey1,
+    surfaceContainerHighest: AppColors.grey1,
     onSurfaceVariant: AppColors.grey2,
     outline: AppColors.grey2,
     outlineVariant: AppColors.grey4,
@@ -147,8 +153,6 @@ class AppColorSchemes {
     inverseSurface: AppColors.light,
     inversePrimary: AppColors.blue,
     surfaceTint: AppColors.white,
-    background: AppColors.black, // ✅ خلفية عامة للوضع الداكن
-    onBackground: AppColors.white,
   );
 }
 
@@ -176,13 +180,94 @@ class AppTheme {
       foregroundColor: AppColors.white,
       elevation: 0,
     ),
+
     extensions: const [SemanticColors.dark],
   );
 }
 
 extension AppThemeContext on BuildContext {
   ThemeData get theme => Theme.of(this); // للحصول على ThemeData
-  ColorScheme get colors => theme.colorScheme; // getter colors
+  ColorScheme get colorScheme => theme.colorScheme; // getter colors
   SemanticColors get semantic =>
       theme.extension<SemanticColors>()!; // للألوان الدلالية
+}
+
+class GlassGradients {
+  /// الأحمر الغامق + الأحمر الفاتح
+  static const LinearGradient redGradient = LinearGradient(
+    colors: [AppColors.redest1, AppColors.redest2],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  /// الذهبي + الذهبي الفاتح
+  static const LinearGradient goldGradient = LinearGradient(
+    colors: [AppColors.gold, AppColors.gold2],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  /// الأزرق + الأخضر
+  static const LinearGradient blueGreenGradient = LinearGradient(
+    colors: [AppColors.bluest, AppColors.greenest],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
+  /// البنفسجي + الوردي
+  static const LinearGradient purplePinkGradient = LinearGradient(
+    colors: [AppColors.purplest, AppColors.pinkest],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  static LinearGradient whiteGradient = LinearGradient(
+    colors: [
+      AppColors.gold2.withValues(alpha: 0.06),
+      AppColors.gold2.withValues(alpha: 0.2),
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  static LinearGradient greyGradient = LinearGradient(
+    colors: [
+      AppColors.darkGrey.withValues(alpha: 0.06),
+      AppColors.white.withValues(alpha: 0.2),
+    ],
+    begin: Alignment.bottomRight,
+    end: Alignment.topLeft,
+  );
+}
+
+class GlassColors {
+  // للخلفية الزجاجية
+  static Color backgroundwhite(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? AppColors.gold2.withOpacity(0.06)
+        : AppColors.gold2.withOpacity(0.20);
+  }
+
+  // حدود الزجاج
+  static Color borderwhite(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? AppColors.gold2.withOpacity(0.12)
+        : AppColors.gold2.withOpacity(0.30);
+  }
+
+  static Color backgroundred(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? AppColors.redest1.withOpacity(0.12)
+        : AppColors.redest2.withOpacity(0.02);
+  }
+
+  static Color backgroundgold(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? AppColors.gold.withOpacity(0.00)
+        : AppColors.gold.withOpacity(0.00);
+  }
+
+  static Color goldborder(Brightness brightness) {
+    return brightness == Brightness.dark
+        ? AppColors.gold.withOpacity(0.00)
+        : AppColors.gold.withOpacity(0.00);
+  }
 }

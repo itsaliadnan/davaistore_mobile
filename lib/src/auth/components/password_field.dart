@@ -43,10 +43,16 @@ class PasswordTextField extends HookWidget {
         isDense: true,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: context.colors.primary, width: 2.0),
+          borderSide: BorderSide(
+            color: context.colorScheme.primary,
+            width: 2.0,
+          ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: context.colors.primary, width: 0.5),
+          borderSide: BorderSide(
+            color: context.colorScheme.primary,
+            width: 0.5,
+          ),
           borderRadius: BorderRadius.circular(12),
         ),
       ),

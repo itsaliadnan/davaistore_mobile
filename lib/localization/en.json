@@ -180,7 +180,9 @@
   "noNewMessages": "You have no new messages",
 
   "composeNewMessage": "Compose New Message",
-  "selectEmployeeToStartChat": "Select the employee to start the conversation"
+  "selectEmployeeToStartChat": "Select the employee to start the conversation",
+  "profile":"Profile",
+  "settings":"Settings"
 
 
 

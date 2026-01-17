@@ -570,6 +570,12 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	/// ar: 'قم باختيار الموظف لبدء المراسلة'
 	String get selectEmployeeToStartChat => 'قم باختيار الموظف لبدء المراسلة';
+
+	/// ar: 'الملف الشخصي'
+	String get profile => 'الملف الشخصي';
+
+	/// ar: 'الاعدادات'
+	String get settings => 'الاعدادات';
 }
 
 /// Flat map(s) containing all translations.
@@ -754,6 +760,8 @@ extension on Translations {
 			case 'noNewMessages': return 'لا تمتلك أي رسالة جديدة';
 			case 'composeNewMessage': return 'كتابة رسالة جديدة';
 			case 'selectEmployeeToStartChat': return 'قم باختيار الموظف لبدء المراسلة';
+			case 'profile': return 'الملف الشخصي';
+			case 'settings': return 'الاعدادات';
 			default: return null;
 		}
 	}

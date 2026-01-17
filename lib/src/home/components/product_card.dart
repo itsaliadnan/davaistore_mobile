@@ -41,19 +41,19 @@ class ProductCard extends StatelessWidget {
                 ),
                 child: imagePath.endsWith(".svg")
                     ? SvgPicture.asset(imagePath, fit: BoxFit.contain)
-                    : Image.asset(imagePath, fit: BoxFit.cover),
+                    : Image.network(imagePath, fit: BoxFit.cover),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                name,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Text(
+            //     name,
+            //     style: const TextStyle(
+            //       fontWeight: FontWeight.bold,
+            //       fontSize: 14,
+            //     ),
+            //   ),
+            // ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
               child: Text(

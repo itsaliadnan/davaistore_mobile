@@ -1,23 +1,18 @@
-import 'package:davaistore_mobile/core/router/app_router.dart';
-import 'package:davaistore_mobile/core/theme/colors.dart';
+import 'package:davaistore_mobile/app.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'core/provider/local_storage_provider.dart';
 
-void main() {
-  runApp(ProviderScope(child: const MyApp()));
-}
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final prefs = await SharedPreferences.getInstance();
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
-      themeMode: ThemeMode.system,
-      routerConfig: router,
-    );
-  }
+  runApp(
+    ProviderScope(
+      overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
+      child: const MyApp(),
+    ),
+  );
 }

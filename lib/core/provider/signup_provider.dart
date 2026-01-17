@@ -4,7 +4,7 @@ import 'package:davaistore_mobile/core/model/user_model.dart';
 import 'package:davaistore_mobile/core/repo/signup_repo.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final signUpProvider = FutureProvider.family<User, SignUpData>((
+final signUpProvider = FutureProvider.family<UserModel, SignUpData>((
   ref,
   data,
 ) async {

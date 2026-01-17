@@ -11,7 +11,7 @@ class SignUpUserRepository {
   final UserApi _api;
   SignUpUserRepository(this._api);
 
-  Future<User> signUp({
+  Future<UserModel> signUp({
     required String email,
     required String name,
     required String password,

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_api.dart';
+part of 'product_api.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'user_api.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter
 
-class _UserApi implements UserApi {
-  _UserApi(this._dio, {this.baseUrl, this.errorLogger});
+class _ProductApi implements ProductApi {
+  _ProductApi(this._dio, {this.baseUrl, this.errorLogger});
 
   final Dio _dio;
 
@@ -18,55 +18,27 @@ class _UserApi implements UserApi {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<UserModel>> getUsers() async {
+  Future<List<ProductModel>> getProducts() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<List<UserModel>>(
+    final _options = _setStreamType<List<ProductModel>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'users',
+            'products',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<UserModel> _value;
+    late List<ProductModel> _value;
     try {
       _value = _result.data!
-          .map((dynamic i) => UserModel.fromJson(i as Map<String, dynamic>))
+          .map((dynamic i) => ProductModel.fromJson(i as Map<String, dynamic>))
           .toList();
-    } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options);
-      rethrow;
-    }
-    return _value;
-  }
-
-  @override
-  Future<UserModel> createUser(Map<String, dynamic> body) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body);
-    final _options = _setStreamType<UserModel>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
-          .compose(
-            _dio.options,
-            'users',
-            queryParameters: queryParameters,
-            data: _data,
-          )
-          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
-    );
-    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late UserModel _value;
-    try {
-      _value = UserModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

@@ -1,83 +1,97 @@
+import 'package:davaistore_mobile/core/model/product_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class AllProductsSection extends StatelessWidget {
-  const AllProductsSection({super.key});
+  final List<ProductModel> products;
+
+  const AllProductsSection({super.key, required this.products});
+
+  // Card بلون برتقالي عادي
+  Widget orangeCard({required Widget child, double radius = 20}) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.orange, // 👈 اللون البرتقالي
+        borderRadius: BorderRadius.circular(radius),
+        boxShadow: const [
+          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4)),
+        ],
+      ),
+      child: child,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final products = [
-      {
-        "name": "Product 1",
-        "price": "\$20",
-        "icon": "assets/icons/All Products.svg",
-      },
-      {
-        "name": "Product 2",
-        "price": "\$35",
-        "icon": "assets/icons/All Products.svg",
-      },
-      {
-        "name": "Product 3",
-        "price": "\$50",
-        "icon": "assets/icons/All Products.svg",
-      },
-      {
-        "name": "Product 4",
-        "price": "\$15",
-        "icon": "assets/icons/All Products.svg",
-      },
-    ];
+    if (products.isEmpty) {
+      return const Center(child: Text('No products found'));
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "All Products",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Text(
+            "All Products",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
         ),
         const SizedBox(height: 12),
-
-        // شبكة المنتجات
         GridView.builder(
-          shrinkWrap: true, // مهم عشان يشتغل داخل ScrollView
+          shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           itemCount: products.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // عمودين
+            crossAxisCount: 2,
             mainAxisSpacing: 12,
             crossAxisSpacing: 12,
-            childAspectRatio: 3 / 4, // نسبة العرض للطول
+            childAspectRatio: 3 / 4,
           ),
           itemBuilder: (context, index) {
             final product = products[index];
-            return Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 6,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(product["icon"]!, width: 60, height: 60),
-                  const SizedBox(height: 8),
-                  Text(
-                    product["name"]!,
-                    style: const TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    product["price"]!,
-                    style: const TextStyle(color: Colors.grey),
-                  ),
-                ],
+            return orangeCard(
+              child: InkWell(
+                borderRadius: BorderRadius.circular(20),
+                onTap: () => print("Clicked on ${product.title}"),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 100,
+                      padding: const EdgeInsets.all(8),
+                      child: Image.network(
+                        product.image,
+                        fit: BoxFit.contain,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.broken_image, color: Colors.white),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Text(
+                        product.title,
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: Colors.white, // 👈 أبيض
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '\$${product.price}',
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },

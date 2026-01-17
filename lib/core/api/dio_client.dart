@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final dioProvider = Provider<Dio>((ref) {
   final dio = Dio(
     BaseOptions(
-      baseUrl: 'https://api.escuelajs.co/',
+      baseUrl: 'https://fakestoreapi.com/',
       // headers: {'Content-Type': 'application/json'},
     ),
   )..interceptors.add(AwesomeDioInterceptor());

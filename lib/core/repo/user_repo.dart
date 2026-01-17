@@ -12,7 +12,11 @@ class UserRepository {
 
   UserRepository(this._api);
 
-  Future<List<User>> getUsers() async {
+  Future<List<UserModel>> getUsers() async {
     return await _api.getUsers();
+  }
+
+  Future<UserModel> createUser(Map<String, dynamic> body) async {
+    return await _api.createUser(body);
   }
 }

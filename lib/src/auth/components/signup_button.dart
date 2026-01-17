@@ -22,7 +22,7 @@ class SignUpButton extends StatelessWidget {
         onPressed: enabled ? onPressed : null,
         style: ElevatedButton.styleFrom(
           backgroundColor: context.semantic.error,
-          foregroundColor: context.colors.primary,
+          foregroundColor: context.colorScheme.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
           ),

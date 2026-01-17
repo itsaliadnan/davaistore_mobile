@@ -213,6 +213,8 @@ class TranslationsEn implements Translations {
 	@override String get noNewMessages => 'You have no new messages';
 	@override String get composeNewMessage => 'Compose New Message';
 	@override String get selectEmployeeToStartChat => 'Select the employee to start the conversation';
+	@override String get profile => 'Profile';
+	@override String get settings => 'Settings';
 }
 
 /// Flat map(s) containing all translations.
@@ -397,6 +399,8 @@ extension on TranslationsEn {
 			case 'noNewMessages': return 'You have no new messages';
 			case 'composeNewMessage': return 'Compose New Message';
 			case 'selectEmployeeToStartChat': return 'Select the employee to start the conversation';
+			case 'profile': return 'Profile';
+			case 'settings': return 'Settings';
 			default: return null;
 		}
 	}

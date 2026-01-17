@@ -1,5 +1,9 @@
 import 'dart:io';
-
+import 'package:auto_route/auto_route.dart';
+import 'package:davaistore_mobile/core/model/user_model.dart';
+import 'package:davaistore_mobile/core/provider/local_storage_provider.dart';
+import 'package:davaistore_mobile/core/repo/user_repo.dart';
+import 'package:davaistore_mobile/core/router/app_router.gr.dart';
 import 'package:davaistore_mobile/core/theme/colors.dart';
 import 'package:davaistore_mobile/src/auth/components/password_field.dart';
 import 'package:davaistore_mobile/src/auth/components/signup_button.dart';
@@ -8,19 +12,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
+@RoutePage()
 class SignUpScreen extends HookConsumerWidget {
   const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final nameController = useTextEditingController();
-    final emailController = useTextEditingController();
-    final passwordController = useTextEditingController();
-
+    final nameController = useTextEditingController(text: 'john');
+    final emailController = useTextEditingController(text: 'john@gmail.com');
+    final passwordController = useTextEditingController(text: 'm38rmF\$');
     final pickedImage = useState<File?>(null);
 
     Future<void> pickImage() async {
@@ -32,7 +35,7 @@ class SignUpScreen extends HookConsumerWidget {
     }
 
     return Scaffold(
-      backgroundColor: context.colors.onPrimary,
+      backgroundColor: context.colorScheme.onPrimary,
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         physics: const ClampingScrollPhysics(),
@@ -65,7 +68,7 @@ class SignUpScreen extends HookConsumerWidget {
                         child: Text(
                           'Sign Up',
                           style: TextStyle(
-                            color: context.colors.primary,
+                            color: context.colorScheme.primary,
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
                           ),
@@ -76,14 +79,13 @@ class SignUpScreen extends HookConsumerWidget {
                         child: Text(
                           'Fill this form below to create your account',
                           style: TextStyle(
-                            color: context.colors.primary,
+                            color: context.colorScheme.primary,
                             fontSize: 16,
                             fontWeight: FontWeight.w300,
                           ),
                         ),
                       ),
                       const SizedBox(height: 30),
-
                       GestureDetector(
                         onTap: pickImage,
                         child: CircleAvatar(
@@ -97,8 +99,6 @@ class SignUpScreen extends HookConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: 20),
-
-                      // الحقول
                       TextFieldWidget(
                         hintText: 'Enter your full name',
                         controller: nameController,
@@ -114,7 +114,6 @@ class SignUpScreen extends HookConsumerWidget {
                         hintText: 'Enter your password',
                       ),
                       const SizedBox(height: 20),
-
                       SignUpButton(
                         onPressed: () async {
                           final name = nameController.text.trim();
@@ -150,27 +149,47 @@ class SignUpScreen extends HookConsumerWidget {
                               ),
                             );
 
-                            // final avatarUrl =
-                            //     'await uploadAvatar(pickedImage.value!$email);';
+                            final avatarUrl =
+                                "https://api.lorem.space/image/face?w=640&h=480&email=$email";
 
-                            // final localStorage = ref.read(localStorageProvider);
-                            // await localStorage.saveAvatarUrl(avatarUrl);
+                            final localStorage = ref.read(localStorageProvider);
+                            await localStorage.saveAvatarUrl(avatarUrl);
 
-                            // await ref
-                            //     .read(signUpRepositoryProvider)
-                            //     .signUp(
-                            //       email: email,
-                            //       name: name,
-                            //       password: password,
-                            //       avatar: avatarUrl,
-                            //     );
+                            final users = await ref
+                                .read(userRepositoryProvider)
+                                .getUsers();
+
+                            UserModel? matchedUser;
+                            try {
+                              matchedUser = users.firstWhere(
+                                (u) =>
+                                    u.email == email && u.password == password,
+                              );
+                            } catch (_) {
+                              matchedUser = null;
+                            }
 
                             Navigator.of(context).pop();
-                            context.go('/home');
-                          } catch (e) {
+
+                            if (matchedUser != null) {
+                              ref.read(loggedInStateProvider.notifier).login();
+
+                              context.router.replace(HomeRoute());
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Email or password is incorrect',
+                                  ),
+                                ),
+                              );
+                            }
+                          } catch (e, stack) {
                             Navigator.of(context).pop();
+                            debugPrint("Sign in failed: $e");
+                            debugPrint("Stack: $stack");
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Sign up failed: $e')),
+                              SnackBar(content: Text('Sign in failed: $e')),
                             );
                           }
                         },
