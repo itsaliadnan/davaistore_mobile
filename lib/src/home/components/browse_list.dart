@@ -16,11 +16,8 @@ class BrowseByCategory extends StatelessWidget {
   Widget orangeCard({required Widget child, double radius = 20}) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.orange, // 👈 اللون البرتقالي
-        borderRadius: BorderRadius.circular(radius),
-      ),
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(radius)),
       child: child,
     );
   }

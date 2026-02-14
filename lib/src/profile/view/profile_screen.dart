@@ -4,6 +4,7 @@ import 'package:davaistore_mobile/core/router/app_router.gr.dart';
 import 'package:davaistore_mobile/core/theme/colors.dart';
 import 'package:davaistore_mobile/src/profile/components/glass_settings_tile.dart';
 import 'package:davaistore_mobile/src/profile/components/language_bottomsheet.dart';
+import 'package:davaistore_mobile/src/profile/components/notifications_bottomsheet.dart';
 import 'package:davaistore_mobile/src/profile/components/theme_bottomsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,6 +22,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
   late AnimationController _controller;
   late Animation<double> _fade;
   late Animation<Offset> _slide;
+  bool notificationsEnabled = false;
 
   @override
   void initState() {
@@ -40,7 +42,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
     });
   }
 
-  // Glassmorphic Card reusable
   Widget glassCard({
     required Widget child,
     double radius = 20,
@@ -53,19 +54,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
         filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
         child: Container(
           decoration: BoxDecoration(
-            gradient: GlassGradients.greyGradient.withOpacity(0.6),
+            gradient: AppGradients.brandPrimary.withOpacity(0.9),
             borderRadius: BorderRadius.circular(radius),
             border: Border.all(
               color: Colors.white.withOpacity(0.2),
               width: 1.0,
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                blurRadius: 10,
-                offset: Offset(0, 5),
-              ),
-            ],
           ),
           child: child,
         ),
@@ -81,35 +75,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
       extendBodyBehindAppBar: true,
       body: Stack(
         children: [
-          // الخلفية العامة
-          Container(
-            decoration: BoxDecoration(
-              gradient: GlassGradients.greyGradient.withOpacity(0.5),
-            ),
-          ),
-
-          // Positioned.fill(
-          //   child: BackdropFilter(
-          //     filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
-          //     child: Container(
-          //       decoration: BoxDecoration(
-          //         gradient: LinearGradient(
-          //           begin: Alignment.topLeft,
-          //           end: Alignment.bottomRight,
-          //           colors: [
-          //             Colors.white.withOpacity(0.15),
-          //             Colors.white.withOpacity(0.05),
-          //           ],
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
           SafeArea(
             child: Column(
               children: [
                 SizedBox(height: 20),
-                // Avatar زجاجي
                 glassCard(
                   radius: 100,
                   blur: 25,
@@ -136,7 +105,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                 ),
                 SizedBox(height: 10),
 
-                // زر Edit Profile زجاجي
                 glassCard(
                   radius: 30,
                   blur: 25,
@@ -189,16 +157,30 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                             ),
                             onTap: () => showThemeBottomSheet(context, ref),
                           ),
+
                           GlassSettingsTile(
                             icon: Icons.notifications,
                             title: "Notifications",
-                            trailing: Icon(
+                            trailing: const Icon(
                               Icons.arrow_forward_ios,
                               size: 16,
                               color: Colors.black87,
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              showReactiveNotificationsBottomSheet(
+                                context,
+                                notificationsEnabled: notificationsEnabled,
+                                onChanged: (value) {
+                                  notificationsEnabled = value;
+                                  print("Notifications enabled: $value");
+                                  setState(
+                                    () {},
+                                  ); // لتحديث الواجهة الرئيسية إذا لزم
+                                },
+                              );
+                            },
                           ),
+
                           GlassSettingsTile(
                             icon: Icons.lock,
                             title: "Privacy & Security",

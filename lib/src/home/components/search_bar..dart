@@ -23,7 +23,7 @@ class SearchBarWidget extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(
-            gradient: GlassGradients.goldGradient,
+            gradient: AppGradients.brandPrimary,
 
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),

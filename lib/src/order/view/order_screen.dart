@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:davaistore_mobile/core/model/order_model.dart';
+import 'package:davaistore_mobile/core/theme/colors.dart';
 import 'package:davaistore_mobile/src/order/view/order_details_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class OrdersScreen extends StatelessWidget {
       id: "ORD-001",
       productName: "Nike Shoes",
       price: 120,
-      image: "https://via.placeholder.com/150",
+      // image: "https://via.placeholder.com/150",
       status: "Processing",
       date: DateTime.now(),
     ),
@@ -20,7 +21,7 @@ class OrdersScreen extends StatelessWidget {
       id: "ORD-002",
       productName: "Smart Watch",
       price: 80,
-      image: "https://via.placeholder.com/150",
+      // image: "https://via.placeholder.com/150",
       status: "Shipped",
       date: DateTime.now(),
     ),
@@ -29,11 +30,11 @@ class OrdersScreen extends StatelessWidget {
   Color statusColor(String status) {
     switch (status) {
       case "Processing":
-        return Colors.orange;
+        return AppColors.warning;
       case "Shipped":
-        return Colors.blue;
-      case "Completed":
-        return Colors.green;
+        return AppColors.success;
+      case "cancelled":
+        return AppColors.error;
       default:
         return Colors.grey;
     }
@@ -53,7 +54,7 @@ class OrdersScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
             ),
             child: ListTile(
-              leading: Image.network(order.image, width: 50),
+              // leading: Image.network(order, width: 50),
               title: Text(order.productName),
               subtitle: Text("Order ID: ${order.id}"),
               trailing: Chip(

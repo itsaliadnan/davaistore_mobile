@@ -31,7 +31,6 @@ class _InfiniteCarousel3DState extends State<InfiniteCarousel3D> {
     });
   }
 
-  // Glassmorphic Card
   Widget glassCard({required Widget child, double radius = 20}) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(radius),
@@ -40,16 +39,10 @@ class _InfiniteCarousel3DState extends State<InfiniteCarousel3D> {
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           decoration: BoxDecoration(
-            gradient: GlassGradients.goldGradient,
-            borderRadius: BorderRadius.circular(radius),
+            gradient: AppGradients.twilightViolet,
+
+            borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 8,
-                offset: Offset(0, 4),
-              ),
-            ],
           ),
           child: child,
         ),

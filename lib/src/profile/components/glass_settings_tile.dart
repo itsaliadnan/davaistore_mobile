@@ -27,10 +27,8 @@ class GlassSettingsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final glassColor = GlassColors.backgroundwhite(
-      Theme.of(context).brightness,
-    );
-    final glassBorder = GlassColors.borderwhite(Theme.of(context).brightness);
+    final glassColor = GlassColors.background(Theme.of(context).brightness);
+    final glassBorder = GlassColors.border(Theme.of(context).brightness);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(14),
@@ -40,7 +38,7 @@ class GlassSettingsTile extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 14),
           padding: const EdgeInsets.symmetric(horizontal: 14),
           decoration: BoxDecoration(
-            gradient: GlassGradients.greyGradient.withOpacity(0.5),
+            gradient: AppGradients.luxuryGold.withOpacity(0.9),
             // color: tileColor ?? glassColor,
             borderRadius: BorderRadius.circular(14),
             border: Border.all(color: glassBorder),

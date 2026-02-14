@@ -17,7 +17,7 @@ class OrderDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(child: Image.network(order.image, height: 150)),
+            // Center(child: Image.network(order.image, height: 150)),
             const SizedBox(height: 16),
             Text(
               order.productName,

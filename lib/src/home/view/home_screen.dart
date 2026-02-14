@@ -1,12 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:davaistore_mobile/core/api/product_api.dart';
 import 'package:davaistore_mobile/core/model/product_model.dart';
+import 'package:davaistore_mobile/core/theme/colors.dart';
 import 'package:davaistore_mobile/src/home/components/all_products.dart';
 import 'package:davaistore_mobile/src/home/components/best_sellers.dart';
 import 'package:davaistore_mobile/src/home/components/browse_list.dart';
 import 'package:davaistore_mobile/src/home/components/new_arrival.dart';
 import 'package:davaistore_mobile/src/home/components/search_bar..dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -28,10 +31,33 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.person),
+          alignment: Alignment.center,
+          icon: SvgPicture.asset(
+            'assets/icons/cart.svg',
+            width: 24,
+            height: 24,
+          ),
           onPressed: () => context.pushNamed('login'),
         ),
-        title: const Text('Home'),
+
+        title: SvgPicture.asset(
+          'assets/icons/DavaiStore_logo.svg',
+          color: context.colorScheme.primary,
+          height: 30,
+          width: 30,
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            alignment: Alignment.center,
+            icon: SvgPicture.asset(
+              'assets/icons/davai_store_logo.svg',
+              width: 55,
+              height: 55,
+            ),
+            onPressed: () => context.pushNamed('login'),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(

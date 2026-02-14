@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 class GlassOptionTile extends StatefulWidget {
   final IconData icon;
-  final String title;
+  final String? title;
   final VoidCallback onTap;
 
   const GlassOptionTile({
     super.key,
     required this.icon,
-    required this.title,
+    this.title,
     required this.onTap,
   });
 
@@ -24,10 +24,8 @@ class GlassOptionTileState extends State<GlassOptionTile> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final glassColor = GlassColors.backgroundwhite(
-      Theme.of(context).brightness,
-    );
-    final glassBorder = GlassColors.goldborder(Theme.of(context).brightness);
+    final glassColor = GlassColors.background(Theme.of(context).brightness);
+    final glassBorder = GlassColors.border(Theme.of(context).brightness);
 
     return GestureDetector(
       onTapDown: (_) => setState(() => _isPressed = true),
@@ -49,7 +47,7 @@ class GlassOptionTileState extends State<GlassOptionTile> {
           children: [
             Icon(widget.icon, color: theme.colorScheme.onSurface),
             SizedBox(width: 12),
-            Text(widget.title, style: theme.textTheme.bodyMedium),
+            Text(widget.title ?? '', style: theme.textTheme.bodyMedium),
           ],
         ),
       ),

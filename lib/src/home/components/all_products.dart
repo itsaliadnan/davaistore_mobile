@@ -1,4 +1,5 @@
 import 'package:davaistore_mobile/core/model/product_model.dart';
+import 'package:davaistore_mobile/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class AllProductsSection extends StatelessWidget {
@@ -7,14 +8,16 @@ class AllProductsSection extends StatelessWidget {
   const AllProductsSection({super.key, required this.products});
 
   // Card بلون برتقالي عادي
-  Widget orangeCard({required Widget child, double radius = 20}) {
+  Widget orangeCard({
+    required BuildContext context,
+    required Widget child,
+    double radius = 20,
+  }) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.orange, // 👈 اللون البرتقالي
-        borderRadius: BorderRadius.circular(radius),
-        boxShadow: const [
-          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4)),
-        ],
+        gradient: AppGradients.twilightViolet,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
       ),
       child: child,
     );
@@ -51,6 +54,7 @@ class AllProductsSection extends StatelessWidget {
           itemBuilder: (context, index) {
             final product = products[index];
             return orangeCard(
+              context: context,
               child: InkWell(
                 borderRadius: BorderRadius.circular(20),
                 onTap: () => print("Clicked on ${product.title}"),
@@ -75,18 +79,18 @@ class AllProductsSection extends StatelessWidget {
                         textAlign: TextAlign.center,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
-                          color: Colors.white, // 👈 أبيض
+                          color: context.colorScheme.onSurface,
                         ),
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       '\$${product.price}',
-                      style: const TextStyle(
-                        color: Colors.white70,
+                      style: TextStyle(
+                        color: context.colorScheme.onSurface,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
