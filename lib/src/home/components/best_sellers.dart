@@ -3,7 +3,7 @@ import 'package:davaistore_mobile/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class BestSellers extends StatelessWidget {
-  final List<ProductModel> products;
+  final List<FirestoreProduct> products;
 
   const BestSellers({super.key, required this.products});
 
@@ -17,7 +17,10 @@ class BestSellers extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: AppGradients.twilightViolet,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.2),
+          width: 1,
+        ),
       ),
       child: child,
     );
@@ -56,20 +59,20 @@ class BestSellers extends StatelessWidget {
               context: context,
               child: InkWell(
                 borderRadius: BorderRadius.circular(20),
-                onTap: () => print("Clicked on ${product.title}"),
+                onTap: () => {},
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      height: 100,
-                      padding: const EdgeInsets.all(8),
-                      child: Image.network(
-                        product.image,
-                        fit: BoxFit.contain,
-                        errorBuilder: (context, error, stackTrace) =>
-                            const Icon(Icons.broken_image),
-                      ),
-                    ),
+                    // Container(
+                    //   height: 100,
+                    //   padding: const EdgeInsets.all(8),
+                    //   child: Image.network(
+                    //     product.image,
+                    //     fit: BoxFit.contain,
+                    //     errorBuilder: (context, error, stackTrace) =>
+                    //         const Icon(Icons.broken_image),
+                    //   ),
+                    // ),
                     const SizedBox(height: 8),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),

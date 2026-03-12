@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:davaistore_mobile/core/router/app_router.gr.dart';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final appRouterProvider = Provider((ref) => AppRouter(ref: ref));
@@ -12,19 +13,19 @@ class AppRouter extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-    // صفحات خارج الـ NavBar (بدون BottomNav)
-    AutoRoute(page: SignUpRoute.page),
+    AutoRoute(page: SplashWrapperRoute.page, initial: true),
+    AutoRoute(page: LoginRoute.page, path: '/login'),
+    AutoRoute(page: SignUpRoute.page, path: '/signup'),
+    AutoRoute(page: AddProductRoute.page),
 
-    // الصفحات داخل الـ NavBar
     AutoRoute(
       page: NavBarRoute.page,
-      initial: true,
+      path: '/nav',
       children: [
-        AutoRoute(page: HomeRoute.page, path: 'home'),
-        AutoRoute(page: OrdersRoute.page, path: 'order'),
-        AutoRoute(page: OrderDetailsRoute.page, path: 'orderDetails'),
-        AutoRoute(page: ProfileRoute.page, path: 'profile'),
-        AutoRoute(page: NotificationsRoute.page, path: 'notifications'),
+        AutoRoute(page: HomeRoute.page),
+        AutoRoute(page: OrdersRoute.page),
+        AutoRoute(page: NotificationsRoute.page),
+        AutoRoute(page: ProfileRoute.page),
       ],
     ),
   ];
@@ -32,7 +33,7 @@ class AppRouter extends RootStackRouter {
   @override
   RouteType get defaultRouteType => RouteType.custom(
     transitionsBuilder: TransitionsBuilders.fadeIn,
-    duration: Duration(milliseconds: 300),
-    reverseDuration: Duration(milliseconds: 300),
+    duration: const Duration(milliseconds: 300),
+    reverseDuration: const Duration(milliseconds: 300),
   );
 }

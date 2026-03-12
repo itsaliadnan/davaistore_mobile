@@ -48,7 +48,6 @@ void showReactiveNotificationsBottomSheet(
 
               const SizedBox(height: 16),
 
-              // الخيارات الفردية
               GlassOptionTile(
                 icon: Icons.notifications_active,
                 title: "Enable Notifications",

@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:auto_route/auto_route.dart';
 import 'package:davaistore_mobile/core/router/app_router.gr.dart';
 import 'package:davaistore_mobile/core/theme/colors.dart';
+import 'package:davaistore_mobile/src/auth/controller/auth_controller.dart';
 import 'package:davaistore_mobile/src/profile/components/glass_settings_tile.dart';
 import 'package:davaistore_mobile/src/profile/components/language_bottomsheet.dart';
 import 'package:davaistore_mobile/src/profile/components/notifications_bottomsheet.dart';
@@ -29,15 +30,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 600),
     );
     _fade = CurvedAnimation(parent: _controller, curve: Curves.easeOut);
     _slide = Tween<Offset>(
-      begin: Offset(0, 0.08),
+      begin: const Offset(0, 0.08),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutBack));
 
-    Future.delayed(Duration(milliseconds: 200), () {
+    Future.delayed(const Duration(milliseconds: 200), () {
       _controller.forward();
     });
   }
@@ -57,7 +58,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
             gradient: AppGradients.brandPrimary.withOpacity(0.9),
             borderRadius: BorderRadius.circular(radius),
             border: Border.all(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.white.withValues(alpha: 0.2),
               width: 1.0,
             ),
           ),
@@ -70,6 +71,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final authState = ref.watch(authControllerProvider);
+
+    String displayName = "John Doe";
+    String displayEmail = "johndoe@gmail.com";
+    String? avatarUrl;
+
+    authState.whenData((user) {
+      if (user != null) {
+        displayName = user.displayName ?? displayName;
+        displayEmail = user.email ?? displayEmail;
+        avatarUrl = user.photoURL;
+      }
+    });
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -78,49 +92,48 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
           SafeArea(
             child: Column(
               children: [
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 glassCard(
                   radius: 100,
                   blur: 25,
                   opacity: 0.15,
                   child: CircleAvatar(
                     radius: 55,
-                    backgroundImage: AssetImage('assets/icons/profilePic.png'),
+                    backgroundImage: avatarUrl?.isNotEmpty == true
+                        ? NetworkImage(avatarUrl!)
+                        : const AssetImage('assets/icons/profilePic.png'),
                   ),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Text(
-                  "John Doe",
+                  displayName,
                   style: theme.textTheme.headlineSmall!.copyWith(
                     color: Colors.black87,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
-                  "johndoe@gmail.com",
+                  displayEmail,
                   style: theme.textTheme.bodyMedium!.copyWith(
                     color: Colors.black54,
                   ),
                 ),
-                SizedBox(height: 10),
-
+                const SizedBox(height: 10),
                 glassCard(
                   radius: 30,
                   blur: 25,
                   opacity: 0.12,
                   child: TextButton.icon(
                     onPressed: () {},
-                    icon: Icon(Icons.edit, color: Colors.black87),
-                    label: Text(
+                    icon: const Icon(Icons.edit, color: Colors.black87),
+                    label: const Text(
                       "Edit Profile",
                       style: TextStyle(color: Colors.black87),
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
-
-                // قائمة الإعدادات
+                const SizedBox(height: 20),
                 Expanded(
                   child: FadeTransition(
                     opacity: _fade,
@@ -136,11 +149,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                               color: Colors.black87,
                             ),
                           ),
-                          SizedBox(height: 15),
+                          const SizedBox(height: 15),
                           GlassSettingsTile(
                             icon: Icons.language,
                             title: "Language",
-                            trailing: Icon(
+                            trailing: const Icon(
                               Icons.arrow_forward_ios,
                               size: 16,
                               color: Colors.black87,
@@ -150,14 +163,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                           GlassSettingsTile(
                             icon: Icons.dark_mode,
                             title: "Theme",
-                            trailing: Icon(
+                            trailing: const Icon(
                               Icons.arrow_forward_ios,
                               size: 16,
                               color: Colors.black87,
                             ),
                             onTap: () => showThemeBottomSheet(context, ref),
                           ),
-
                           GlassSettingsTile(
                             icon: Icons.notifications,
                             title: "Notifications",
@@ -171,35 +183,35 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                                 context,
                                 notificationsEnabled: notificationsEnabled,
                                 onChanged: (value) {
-                                  notificationsEnabled = value;
-                                  print("Notifications enabled: $value");
-                                  setState(
-                                    () {},
-                                  ); // لتحديث الواجهة الرئيسية إذا لزم
+                                  setState(() => notificationsEnabled = value);
                                 },
                               );
                             },
                           ),
-
                           GlassSettingsTile(
                             icon: Icons.lock,
                             title: "Privacy & Security",
-                            trailing: Icon(
+                            trailing: const Icon(
                               Icons.arrow_forward_ios,
                               size: 16,
                               color: Colors.black87,
                             ),
                             onTap: () {},
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           GlassSettingsTile(
                             icon: Icons.logout,
                             title: "Logout",
                             iconColor: Colors.redAccent,
                             titleColor: Colors.redAccent,
-                            tileColor: Colors.redAccent.withOpacity(0.08),
-                            onTap: () {
-                              context.router.replace(const SignUpRoute());
+                            tileColor: Colors.redAccent.withValues(alpha: 0.08),
+                            onTap: () async {
+                              await ref
+                                  .read(authControllerProvider.notifier)
+                                  .signOut();
+                              if (!context.mounted) return;
+
+                              context.router.replace(const LoginRoute());
                             },
                           ),
                         ],

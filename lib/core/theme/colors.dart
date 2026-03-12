@@ -222,12 +222,12 @@ class AppGradients {
 class GlassColors {
   static Color background(Brightness brightness) =>
       brightness == Brightness.dark
-      ? Colors.white.withOpacity(0.06)
-      : Colors.white.withOpacity(0.20);
+      ? Colors.white.withValues(alpha: 0.06)
+      : Colors.white.withValues(alpha: 0.20);
 
   static Color border(Brightness brightness) => brightness == Brightness.dark
-      ? Colors.white.withOpacity(0.12)
-      : Colors.white.withOpacity(0.30);
+      ? Colors.white.withValues(alpha: 0.12)
+      : Colors.white.withValues(alpha: 0.30);
 }
 
 /// ===============================

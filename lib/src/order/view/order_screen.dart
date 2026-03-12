@@ -59,7 +59,9 @@ class OrdersScreen extends StatelessWidget {
               subtitle: Text("Order ID: ${order.id}"),
               trailing: Chip(
                 label: Text(order.status),
-                backgroundColor: statusColor(order.status).withOpacity(0.15),
+                backgroundColor: statusColor(
+                  order.status,
+                ).withValues(alpha: 0.15),
                 labelStyle: TextStyle(
                   color: statusColor(order.status),
                   fontWeight: FontWeight.bold,

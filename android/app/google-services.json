@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "246909659099",
+    "project_id": "davai-store-6efa1",
+    "storage_bucket": "davai-store-6efa1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246909659099:android:fda7456edb45e13f9429fe",
+        "android_client_info": {
+          "package_name": "com.example.davaistore_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246909659099-u28jftdl2uu3akr7s3qunhhpi9ru6odq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.davaistore_mobile",
+            "certificate_hash": "ef2364c860f83e8c12357165ebc705f2d14a2b3b"
+          }
+        },
+        {
+          "client_id": "246909659099-8av5dlksjlfhej7frposmb12594gbr47.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1bsS_1LFTqdoZBNjZZO8GWfyMjd_-NPk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246909659099-8av5dlksjlfhej7frposmb12594gbr47.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "246909659099-jj16vt9dbkmnohrj8mgvoj450dbigue5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.davaistoreMobile"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

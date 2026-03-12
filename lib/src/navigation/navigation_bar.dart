@@ -52,7 +52,9 @@ class SignatureNavBar extends StatelessWidget {
         duration: const Duration(milliseconds: 220),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: active ? Colors.black.withOpacity(0.08) : Colors.transparent,
+          color: active
+              ? Colors.black.withValues(alpha: 0.08)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(14),
         ),
         child: SvgPicture.asset(

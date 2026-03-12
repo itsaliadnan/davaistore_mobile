@@ -39,7 +39,7 @@ class GlassOptionTileState extends State<GlassOptionTile> {
         margin: const EdgeInsets.symmetric(vertical: 8),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: _isPressed ? glassColor.withOpacity(0.5) : glassColor,
+          color: _isPressed ? glassColor.withValues(alpha: 0.5) : glassColor,
           borderRadius: BorderRadius.circular(14),
           border: Border.all(color: glassBorder),
         ),

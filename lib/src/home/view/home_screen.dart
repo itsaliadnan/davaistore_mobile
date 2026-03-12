@@ -1,31 +1,71 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:davaistore_mobile/core/api/product_api.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davaistore_mobile/core/model/product_model.dart';
+import 'package:davaistore_mobile/core/router/app_router.gr.dart';
 import 'package:davaistore_mobile/core/theme/colors.dart';
 import 'package:davaistore_mobile/src/home/components/all_products.dart';
 import 'package:davaistore_mobile/src/home/components/best_sellers.dart';
 import 'package:davaistore_mobile/src/home/components/browse_list.dart';
-import 'package:davaistore_mobile/src/home/components/new_arrival.dart';
-import 'package:davaistore_mobile/src/home/components/search_bar..dart';
+import 'package:davaistore_mobile/src/home/components/search_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final productsProvider = FutureProvider<List<ProductModel>>((ref) async {
-  final productApi = ref.read(productApiProvider);
-  return await productApi.getProducts();
+final productsProvider = StreamProvider<List<FirestoreProduct>>((ref) {
+  return FirebaseFirestore.instance
+      .collection('products')
+      .orderBy('createdAt', descending: true)
+      .snapshots()
+      .map((snapshot) {
+        return snapshot.docs
+            .map((doc) => FirestoreProduct.fromJson(doc.data(), doc.id))
+            .toList();
+      });
 });
 
 @RoutePage()
-class HomeScreen extends ConsumerWidget {
-  HomeScreen({super.key});
+class HomeScreen extends ConsumerStatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  bool isAdmin = false;
+  @override
+  void initState() {
+    super.initState();
+    checkAdmin();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
 
   final TextEditingController searchController = TextEditingController();
 
+  void checkAdmin() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final idTokenResult = await user.getIdTokenResult(true);
+
+      if (idTokenResult.claims != null &&
+          idTokenResult.claims!['admin'] == true) {
+        setState(() {
+          isAdmin = true;
+        });
+      }
+    }
+  }
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final productsAsync = ref.watch(productsProvider);
 
     return Scaffold(
@@ -42,21 +82,22 @@ class HomeScreen extends ConsumerWidget {
 
         title: SvgPicture.asset(
           'assets/icons/DavaiStore_logo.svg',
-          color: context.colorScheme.primary,
+          colorFilter: ColorFilter.mode(
+            context.colorScheme.primary,
+            BlendMode.srcIn,
+          ),
           height: 30,
           width: 30,
         ),
         centerTitle: true,
         actions: [
-          IconButton(
-            alignment: Alignment.center,
-            icon: SvgPicture.asset(
-              'assets/icons/davai_store_logo.svg',
-              width: 55,
-              height: 55,
+          if (isAdmin)
+            IconButton(
+              icon: const Icon(Icons.admin_panel_settings),
+              onPressed: () {
+                context.router.push(const AddProductRoute());
+              },
             ),
-            onPressed: () => context.pushNamed('login'),
-          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -67,7 +108,6 @@ class HomeScreen extends ConsumerWidget {
               SearchBarWidget(
                 hintText: 'Search products...',
                 controller: searchController,
-                onChanged: (value) => print('Search query: $value'),
               ),
               const SizedBox(height: 16),
               const Text(
@@ -78,10 +118,27 @@ class HomeScreen extends ConsumerWidget {
               BrowseByCategory(),
               const SizedBox(height: 16),
               productsAsync.when(
-                data: (products) => InfiniteCarousel3D(products: products),
+                data: (products) => ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: products.length,
+                  itemBuilder: (context, index) {
+                    final product = products[index];
+                    return ListTile(
+                      title: Text(product.title),
+                      subtitle: Text('${product.price} د.ع'),
+                      // leading: Image.network(
+                      //   product.image,
+                      //   width: 50,
+                      //   height: 50,
+                      // ),
+                    );
+                  },
+                ),
                 loading: () => const Center(child: CircularProgressIndicator()),
                 error: (err, stack) => Center(child: Text('Error: $err')),
               ),
+
               const SizedBox(height: 16),
 
               productsAsync.when(

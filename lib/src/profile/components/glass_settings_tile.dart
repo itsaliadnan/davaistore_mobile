@@ -27,7 +27,7 @@ class GlassSettingsTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final glassColor = GlassColors.background(Theme.of(context).brightness);
+    // final glassColor = GlassColors.background(Theme.of(context).brightness);
     final glassBorder = GlassColors.border(Theme.of(context).brightness);
 
     return ClipRRect(

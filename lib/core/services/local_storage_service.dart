@@ -36,29 +36,6 @@ class LocalStorageService {
         ? AppLocale.ar
         : AppLocale.en;
   }
-
-  // Future<void> saveLoginResponse(LoginResponse loginResponse) async {
-  //   await sharedPreferences.setString(
-  //     StorageKeys.loginResponse,
-  //     jsonEncode(loginResponse.toJson()),
-  //   );
-  // }
-
-  // LoginResponse? getLoginResponse() {
-  //   final res = sharedPreferences.getString(StorageKeys.loginResponse);
-
-  //   return res != null ? LoginResponse.fromJson(jsonDecode(res)) : null;
-  // }
-
-  // Future<void> clearLoginResponse() async {
-  //   await sharedPreferences.remove(StorageKeys.loginResponse);
-  // }
-
-  // bool isLoggedIn() {
-  //   return sharedPreferences.containsKey(StorageKeys.loginResponse);
-  // }
-
-  // getMyProfile() {}
 }
 
 class StorageKeys {

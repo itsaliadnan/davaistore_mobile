@@ -4,7 +4,7 @@ import 'package:davaistore_mobile/core/model/product_model.dart';
 import 'package:davaistore_mobile/core/theme/colors.dart';
 
 class InfiniteCarousel3D extends StatefulWidget {
-  final List<ProductModel> products;
+  final List<FirestoreProduct> products;
 
   const InfiniteCarousel3D({super.key, required this.products});
 
@@ -42,7 +42,10 @@ class _InfiniteCarousel3DState extends State<InfiniteCarousel3D> {
             gradient: AppGradients.twilightViolet,
 
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.2),
+              width: 1,
+            ),
           ),
           child: child,
         ),
@@ -85,16 +88,16 @@ class _InfiniteCarousel3DState extends State<InfiniteCarousel3D> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    height: 140,
-                    padding: const EdgeInsets.all(12),
-                    child: Image.network(
-                      product.image,
-                      fit: BoxFit.contain,
-                      errorBuilder: (context, error, stackTrace) =>
-                          const Icon(Icons.broken_image),
-                    ),
-                  ),
+                  // Container(
+                  //   height: 140,
+                  //   padding: const EdgeInsets.all(12),
+                  //   child: Image.network(
+                  //     product.image,
+                  //     fit: BoxFit.contain,
+                  //     errorBuilder: (context, error, stackTrace) =>
+                  //         const Icon(Icons.broken_image),
+                  //   ),
+                  // ),
                   const SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
