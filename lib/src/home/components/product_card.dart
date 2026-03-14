@@ -5,14 +5,14 @@ class ProductCard extends StatelessWidget {
   final String name;
   final String imagePath;
   final double price;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const ProductCard({
     super.key,
     required this.name,
     required this.imagePath,
     required this.price,
-    required this.onTap,
+    this.onTap,
   });
 
   @override

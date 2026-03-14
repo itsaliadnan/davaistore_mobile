@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 class BrowseByCategory extends StatelessWidget {
   final List<Category> categories = [
-    // Category(name: 'Shoes', iconPath: 'assets/icons/shoes1.svg'),
-    // Category(name: 'Bags', iconPath: 'assets/icons/running.svg'),
-    // Category(name: 'Hats', iconPath: 'assets/icons/Running.svg'),
-    // Category(name: 'Watches', iconPath: 'assets/icons/Running.svg'),
+    Category(name: 'Shoes', iconPath: 'assets/icons/shoes.svg'),
+    Category(name: 'Bags', iconPath: 'assets/icons/bags.svg'),
+    Category(name: 'Hats', iconPath: 'assets/icons/cap.svg'),
+    Category(name: 'Watches', iconPath: 'assets/icons/Running.svg'),
   ];
 
   BrowseByCategory({super.key});

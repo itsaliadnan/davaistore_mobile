@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:auto_route/auto_route.dart';
 import 'package:davaistore_mobile/core/router/app_router.gr.dart';
 import 'package:davaistore_mobile/core/theme/colors.dart';
+import 'package:davaistore_mobile/localization/strings.g.dart';
 import 'package:davaistore_mobile/src/auth/controller/auth_controller.dart';
 import 'package:davaistore_mobile/src/profile/components/glass_settings_tile.dart';
 import 'package:davaistore_mobile/src/profile/components/language_bottomsheet.dart';
@@ -127,8 +128,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                   child: TextButton.icon(
                     onPressed: () {},
                     icon: const Icon(Icons.edit, color: Colors.black87),
-                    label: const Text(
-                      "Edit Profile",
+                    label: Text(
+                      context.t.profile.editProfile,
                       style: TextStyle(color: Colors.black87),
                     ),
                   ),
@@ -143,7 +144,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                         padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                         children: [
                           Text(
-                            "Settings",
+                            context.t.profile.settings,
                             style: theme.textTheme.titleLarge!.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Colors.black87,
@@ -152,7 +153,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                           const SizedBox(height: 15),
                           GlassSettingsTile(
                             icon: Icons.language,
-                            title: "Language",
+                            title: context.t.profile.language,
                             trailing: const Icon(
                               Icons.arrow_forward_ios,
                               size: 16,
@@ -162,7 +163,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                           ),
                           GlassSettingsTile(
                             icon: Icons.dark_mode,
-                            title: "Theme",
+                            title: context.t.profile.display,
                             trailing: const Icon(
                               Icons.arrow_forward_ios,
                               size: 16,
@@ -172,7 +173,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                           ),
                           GlassSettingsTile(
                             icon: Icons.notifications,
-                            title: "Notifications",
+                            title: context.t.profile.notifications,
                             trailing: const Icon(
                               Icons.arrow_forward_ios,
                               size: 16,
@@ -190,7 +191,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                           ),
                           GlassSettingsTile(
                             icon: Icons.lock,
-                            title: "Privacy & Security",
+                            title: context.t.profile.privacyAndSecurity,
                             trailing: const Icon(
                               Icons.arrow_forward_ios,
                               size: 16,
@@ -201,7 +202,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen>
                           const SizedBox(height: 20),
                           GlassSettingsTile(
                             icon: Icons.logout,
-                            title: "Logout",
+                            title: context.t.profile.logout,
                             iconColor: Colors.redAccent,
                             titleColor: Colors.redAccent,
                             tileColor: Colors.redAccent.withValues(alpha: 0.08),

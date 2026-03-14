@@ -1,4 +1,5 @@
 import 'package:davaistore_mobile/core/theme/colors.dart';
+import 'package:davaistore_mobile/localization/strings.g.dart';
 import 'package:davaistore_mobile/src/profile/components/glass_option_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ void showLanguageBottomSheet(BuildContext context) {
       child: Wrap(
         children: [
           Text(
-            "Select Language",
+            context.t.profile.selectLanguage,
             style: theme.textTheme.titleLarge!.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -24,12 +25,12 @@ void showLanguageBottomSheet(BuildContext context) {
           const SizedBox(height: 16),
           GlassOptionTile(
             icon: Icons.language,
-            title: "English",
+            title: context.t.profile.english,
             onTap: () => Navigator.pop(context),
           ),
           GlassOptionTile(
             icon: Icons.language,
-            title: "العربية",
+            title: context.t.profile.arabic,
             onTap: () => Navigator.pop(context),
           ),
         ],

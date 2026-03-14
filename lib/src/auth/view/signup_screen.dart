@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:davaistore_mobile/core/router/app_router.gr.dart';
 import 'package:davaistore_mobile/core/theme/colors.dart';
+import 'package:davaistore_mobile/localization/strings.g.dart';
 import 'package:davaistore_mobile/src/auth/components/password_field.dart';
 import 'package:davaistore_mobile/src/auth/components/signup_button.dart';
 import 'package:davaistore_mobile/src/auth/components/text_field.dart';
@@ -58,7 +59,7 @@ class SignUpScreen extends HookConsumerWidget {
                     children: [
                       const SizedBox(height: 60),
                       Text(
-                        'Sign Up',
+                        context.t.auth.signUp,
                         style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
@@ -66,7 +67,7 @@ class SignUpScreen extends HookConsumerWidget {
                         ),
                       ),
                       Text(
-                        'Fill this form below to create your account',
+                        context.t.auth.fillThisFormToCreateAnAccount,
                         style: TextStyle(
                           fontSize: 16,
                           color: context.colorScheme.onSurface,
@@ -89,17 +90,17 @@ class SignUpScreen extends HookConsumerWidget {
                       const SizedBox(height: 20),
                       TextFieldWidget(
                         controller: nameController,
-                        hintText: 'Enter your full name',
+                        hintText: context.t.auth.enterYourFullName,
                       ),
                       const SizedBox(height: 12),
                       TextFieldWidget(
                         controller: emailController,
-                        hintText: 'Enter your email',
+                        hintText: context.t.auth.enterYourEmail,
                       ),
                       const SizedBox(height: 12),
                       PasswordTextField(
                         controller: passwordController,
-                        hintText: 'Enter your password',
+                        hintText: context.t.auth.enterYourPassword,
                       ),
                       const SizedBox(height: 20),
                       if (authState is AsyncLoading)
@@ -114,16 +115,20 @@ class SignUpScreen extends HookConsumerWidget {
                               email.isEmpty ||
                               password.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Please fill all text fields'),
+                              SnackBar(
+                                content: Text(
+                                  context.t.auth.pleaseFillAllTextFields,
+                                ),
                               ),
                             );
                             return;
                           }
                           if (pickedImage.value == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Please select a profile image'),
+                              SnackBar(
+                                content: Text(
+                                  context.t.auth.pleaseSelectAProfilePicture,
+                                ),
                               ),
                             );
                             return;
@@ -149,9 +154,7 @@ class SignUpScreen extends HookConsumerWidget {
                                 loading: () {},
                                 error: (e, st) =>
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text('Signup failed: $e'),
-                                      ),
+                                      SnackBar(content: Text('Signup : $e')),
                                     ),
                               );
                         },
@@ -160,7 +163,7 @@ class SignUpScreen extends HookConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Already have an account?",
+                            context.t.auth.alreadyHaveAnAccount,
                             style: TextStyle(
                               color: context.colorScheme.onSurface,
                             ),
@@ -169,7 +172,7 @@ class SignUpScreen extends HookConsumerWidget {
                             onPressed: () =>
                                 context.router.replace(const LoginRoute()),
                             child: Text(
-                              'Login',
+                              context.t.auth.login,
                               style: TextStyle(
                                 color: context.colorScheme.onSurface,
                               ),

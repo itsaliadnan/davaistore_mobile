@@ -1,5 +1,6 @@
 import 'package:davaistore_mobile/core/model/product_model.dart';
 import 'package:davaistore_mobile/core/theme/colors.dart';
+import 'package:davaistore_mobile/localization/strings.g.dart';
 import 'package:flutter/material.dart';
 
 class AllProductsSection extends StatelessWidget {
@@ -29,16 +30,16 @@ class AllProductsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (products.isEmpty) {
-      return const Center(child: Text('No products found'));
+      return Center(child: Text(context.t.home.noProductsFound));
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
+        Padding(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Text(
-            "All Products",
+            context.t.home.allProducts,
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ),

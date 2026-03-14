@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davaistore_mobile/core/model/product_model.dart';
 import 'package:davaistore_mobile/core/router/app_router.gr.dart';
 import 'package:davaistore_mobile/core/theme/colors.dart';
+import 'package:davaistore_mobile/localization/strings.g.dart';
 import 'package:davaistore_mobile/src/home/components/all_products.dart';
 import 'package:davaistore_mobile/src/home/components/best_sellers.dart';
 import 'package:davaistore_mobile/src/home/components/browse_list.dart';
@@ -106,12 +107,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: Column(
             children: [
               SearchBarWidget(
-                hintText: 'Search products...',
+                hintText: context.t.home.searchProduct,
                 controller: searchController,
               ),
               const SizedBox(height: 16),
-              const Text(
-                'Browse by Category',
+              Text(
+                context.t.home.browseByCategory,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
@@ -144,7 +145,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               productsAsync.when(
                 data: (products) {
                   if (products.isEmpty) {
-                    return const Center(child: Text("No products found"));
+                    return Center(child: Text(context.t.home.noProductsFound));
                   }
                   return BestSellers(products: products);
                 },

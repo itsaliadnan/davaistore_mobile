@@ -1,4 +1,5 @@
 import 'package:davaistore_mobile/core/theme/colors.dart';
+import 'package:davaistore_mobile/localization/strings.g.dart';
 import 'package:davaistore_mobile/src/profile/components/glass_option_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,7 @@ void showReactiveNotificationsBottomSheet(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Notifications",
+                context.t.profile.notifications,
                 style: theme.textTheme.titleLarge!.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -50,7 +51,7 @@ void showReactiveNotificationsBottomSheet(
 
               GlassOptionTile(
                 icon: Icons.notifications_active,
-                title: "Enable Notifications",
+                title: context.t.profile.enableNotifications,
 
                 onTap: () {
                   setSheetState(() {
@@ -62,7 +63,7 @@ void showReactiveNotificationsBottomSheet(
 
               GlassOptionTile(
                 icon: Icons.notifications_off,
-                title: "Disable Notifications",
+                title: context.t.profile.disableNotifications,
 
                 onTap: () {
                   setSheetState(() {

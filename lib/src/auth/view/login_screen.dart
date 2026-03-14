@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:davaistore_mobile/core/router/app_router.gr.dart';
 import 'package:davaistore_mobile/core/services/auth_services.dart';
 import 'package:davaistore_mobile/core/theme/colors.dart';
+import 'package:davaistore_mobile/localization/strings.g.dart';
 import 'package:davaistore_mobile/src/auth/components/signup_button.dart';
 import 'package:davaistore_mobile/src/auth/components/text_field.dart';
 import 'package:davaistore_mobile/src/auth/controller/auth_controller.dart';
@@ -62,7 +63,7 @@ class LoginScreen extends HookConsumerWidget {
                                 ),
                                 // const SizedBox(height: 250),
                                 Text(
-                                  'Davaistore',
+                                  context.t.auth.davaiStore,
                                   style: TextStyle(
                                     fontSize: 28,
                                     fontWeight: FontWeight.bold,
@@ -80,12 +81,12 @@ class LoginScreen extends HookConsumerWidget {
                                 // ),
                                 TextFieldWidget(
                                   controller: emailController,
-                                  hintText: 'Enter your email',
+                                  hintText: context.t.auth.enterYourEmail,
                                 ),
                                 const SizedBox(height: 12),
                                 TextFieldWidget(
                                   controller: passwordController,
-                                  hintText: 'Enter your password',
+                                  hintText: context.t.auth.enterYourPassword,
                                 ),
                                 const SizedBox(height: 20),
                                 if (authState is AsyncLoading)
@@ -102,9 +103,12 @@ class LoginScreen extends HookConsumerWidget {
                                       ScaffoldMessenger.of(
                                         context,
                                       ).showSnackBar(
-                                        const SnackBar(
+                                        SnackBar(
                                           content: Text(
-                                            'Please fill all text fields',
+                                            context
+                                                .t
+                                                .auth
+                                                .pleaseFillAllTextFields,
                                           ),
                                         ),
                                       );
@@ -207,7 +211,7 @@ class LoginScreen extends HookConsumerWidget {
                                           height: 20,
                                         ),
                                         const SizedBox(width: 8),
-                                        const Text("Continue with Google"),
+                                        Text(context.t.auth.signupWithGoogle),
                                       ],
                                     ),
                                   ),
@@ -224,7 +228,7 @@ class LoginScreen extends HookConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Don't have an account?",
+                          context.t.auth.dontHaveAnAccount,
                           style: TextStyle(
                             color: context.colorScheme.onSurface,
                             fontSize: 12,
@@ -234,7 +238,7 @@ class LoginScreen extends HookConsumerWidget {
                           onPressed: () =>
                               context.router.push(const SignUpRoute()),
                           child: Text(
-                            'Sign Up',
+                            context.t.auth.signUp,
                             style: TextStyle(
                               color: context.colorScheme.onSurface,
                               fontSize: 12,

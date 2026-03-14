@@ -1,4 +1,5 @@
 import 'package:davaistore_mobile/core/theme/colors.dart';
+import 'package:davaistore_mobile/localization/strings.g.dart';
 import 'package:davaistore_mobile/src/profile/components/glass_option_tile.dart';
 import 'package:davaistore_mobile/src/shared/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ void showThemeBottomSheet(BuildContext context, WidgetRef ref) {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Select Theme",
+            context.t.profile.selectMode,
             style: theme.textTheme.titleLarge!.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -29,7 +30,7 @@ void showThemeBottomSheet(BuildContext context, WidgetRef ref) {
 
           GlassOptionTile(
             icon: Icons.light_mode,
-            title: "Light",
+            title: context.t.profile.light,
             onTap: () {
               ref.read(themeModeProvider.notifier).state = ThemeMode.light;
               Navigator.pop(context);
@@ -38,7 +39,7 @@ void showThemeBottomSheet(BuildContext context, WidgetRef ref) {
 
           GlassOptionTile(
             icon: Icons.dark_mode,
-            title: "Dark",
+            title: context.t.profile.dark,
             onTap: () {
               ref.read(themeModeProvider.notifier).state = ThemeMode.dark;
               Navigator.pop(context);
@@ -47,7 +48,7 @@ void showThemeBottomSheet(BuildContext context, WidgetRef ref) {
 
           GlassOptionTile(
             icon: Icons.brightness_auto,
-            title: "System",
+            title: context.t.profile.system,
             onTap: () {
               ref.read(themeModeProvider.notifier).state = ThemeMode.system;
               Navigator.pop(context);
